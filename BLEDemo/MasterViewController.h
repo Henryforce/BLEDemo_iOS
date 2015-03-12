@@ -8,17 +8,22 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
-@class DetailViewController;
+#define BLEService @"dfb0"
+#define BLECharacteristic @"dfb1"
 
-@interface MasterViewController : UITableViewController<CBCentralManagerDelegate>{
+@interface MasterViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, CBCentralManagerDelegate, CBPeripheralDelegate, UITextFieldDelegate>{
     CBCentralManager *manager;
     CBPeripheral *mainPeripheral;
+    CBCharacteristic *mainCharacteristic;
     
     NSMutableArray *peripherals;
 }
 
-@property (strong, nonatomic) DetailViewController *detailViewController;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITextField *dataField;
+@property (weak, nonatomic) IBOutlet UILabel *receiveText;
 
+- (IBAction)sendData:(id)sender;
 
 @end
 
